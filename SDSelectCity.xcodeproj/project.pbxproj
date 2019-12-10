@@ -17,6 +17,7 @@
 		8651DE8F23910FE6001BE9D7 /* SDCitySelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8651DE8823910FE6001BE9D7 /* SDCitySelectVC.swift */; };
 		8651DE912391132F001BE9D7 /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8651DE902391132F001BE9D7 /* Macros.swift */; };
 		8651DE93239114BE001BE9D7 /* SDCitySelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8651DE92239114BE001BE9D7 /* SDCitySelectVM.swift */; };
+		8680AC8E239F8FF400DE7702 /* SDLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8680AC8D239F8FF400DE7702 /* SDLocationManager.swift */; };
 		86B43E56238F5F4900949BDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B43E55238F5F4900949BDD /* AppDelegate.swift */; };
 		86B43E5A238F5F4900949BDD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B43E59238F5F4900949BDD /* ViewController.swift */; };
 		86B43E5D238F5F4900949BDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86B43E5B238F5F4900949BDD /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		8651DE8823910FE6001BE9D7 /* SDCitySelectVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDCitySelectVC.swift; sourceTree = "<group>"; };
 		8651DE902391132F001BE9D7 /* Macros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Macros.swift; sourceTree = "<group>"; };
 		8651DE92239114BE001BE9D7 /* SDCitySelectVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDCitySelectVM.swift; sourceTree = "<group>"; };
+		8680AC8D239F8FF400DE7702 /* SDLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDLocationManager.swift; sourceTree = "<group>"; };
 		86B43E52238F5F4900949BDD /* SDSelectCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDSelectCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86B43E55238F5F4900949BDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86B43E59238F5F4900949BDD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				8651DE8623910FE6001BE9D7 /* SDCitySelectSearchVC.swift */,
 				8651DE8823910FE6001BE9D7 /* SDCitySelectVC.swift */,
 				8651DE8523910FE6001BE9D7 /* SDHotCityTableViewCell.swift */,
+				8680AC8D239F8FF400DE7702 /* SDLocationManager.swift */,
 				8651DE902391132F001BE9D7 /* Macros.swift */,
 			);
 			path = SDSelectCity;
@@ -301,6 +304,7 @@
 				8651DE8923910FE6001BE9D7 /* SDCitySelectCollectionViewCell.swift in Sources */,
 				8651DE8D23910FE6001BE9D7 /* SDCitySelectSearchVC.swift in Sources */,
 				8651DE8C23910FE6001BE9D7 /* SDHotCityTableViewCell.swift in Sources */,
+				8680AC8E239F8FF400DE7702 /* SDLocationManager.swift in Sources */,
 				86B43E56238F5F4900949BDD /* AppDelegate.swift in Sources */,
 				8651DE912391132F001BE9D7 /* Macros.swift in Sources */,
 				8651DE8F23910FE6001BE9D7 /* SDCitySelectVC.swift in Sources */,

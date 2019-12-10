@@ -62,7 +62,7 @@ class SDCitySelectSearchVC: UIViewController ,UITableViewDelegate,UITableViewDat
         
         textFiled.leftView = leftView
         textFiled.leftViewMode = UITextField.ViewMode.always
-        
+        textFiled .addTarget(self, action: #selector(textFiledChangeValue(textField:)), for: UIControl.Event.editingChanged)
         return textFiled
     }()
     
@@ -83,6 +83,28 @@ class SDCitySelectSearchVC: UIViewController ,UITableViewDelegate,UITableViewDat
         return dataArr
     }()
     
+    lazy var allArr: NSMutableArray = {
+        let dataArr = NSMutableArray.init()
+        return dataArr
+    }()
+    
+    lazy var cancelBtn: UIButton = {
+        let btn = UIButton()
+        btn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        btn .setTitle("取消", for: UIControl.State.normal)
+        btn .setTitleColor(UIColor.black, for: UIControl.State.normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        btn .addTarget(self, action: #selector(cancelBtnClick), for: UIControl.Event.touchUpInside)
+        return btn
+    }()
+    
+    lazy var leftBtn: UIButton = {
+        let btn = UIButton()
+        btn.frame = CGRect(x: 0, y: 0, width: 30, height: 44)
+        btn .setImage(UIImage.init(named: "nav_back"), for: UIControl.State.normal)
+        btn .addTarget(self, action: #selector(popBtnClick), for: UIControl.Event.touchUpInside)
+        return btn
+    }()
     
     /*
      // MARK: - Navigation
@@ -101,8 +123,13 @@ extension SDCitySelectSearchVC{
     
     func setupNav(){
         self.navigationItem.titleView = self.textFiled
-//        self .addRightBarButtonItem(withTitle: "取消", titleColor: ColorHex(0xFF6532), titleFont: UIFont.regularFont(withSize: 14), icon: nil, target: self, action: #selector(cancelBtnClick))
-//        self .addLeftBarButtonItem(withTitle: nil, titleColor: nil, titleFont: nil, icon: UIImage.init(named: "navi_back"), target: self, action: #selector(popBtnClick))
+
+        let rightItem = UIBarButtonItem(customView: self.cancelBtn)
+        self.navigationItem.rightBarButtonItem = rightItem
+        
+        let leftItem = UIBarButtonItem(customView: self.leftBtn)
+        self.navigationItem.leftBarButtonItem = leftItem
+        
     }
     
     func setupUI(){
@@ -154,12 +181,14 @@ extension SDCitySelectSearchVC{
         }
         self.navigationController? .popToRootViewController(animated: true)
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.textFiled .resignFirstResponder()
+    }
 }
 // MARK: textFiledDelegae
 extension SDCitySelectSearchVC{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField .resignFirstResponder()
-        
         self .setnetWork(keyWork: textField.text!)
         return true
     }
@@ -167,17 +196,38 @@ extension SDCitySelectSearchVC{
 
 extension SDCitySelectSearchVC{
     func setnetWork(keyWork:String){
-//        BPHealthHomeServer .getSearchCityKeyWord(keyWork, success: { (obj, msg, info) in
-//            self.dataArr = obj as! NSMutableArray
-//            if(self.dataArr.count==0){
-//               self.emptyView.isHidden = false
-//            }else{
-//               self.emptyView.isHidden = true
-//            }
-//            self.tableView .reloadData()
-//            
-//        }) { (error, msg, info) in
-//            
-//        }
+        
+        let predicate = NSPredicate(format: "name CONTAINS[c] %@", keyWork)
+        let reArray = self.allArr.filtered(using: predicate)
+        
+        self.dataArr = NSMutableArray(array: reArray)
+        if(self.dataArr.count==0){
+           self.emptyView.isHidden = false
+        }else{
+           self.emptyView.isHidden = true
+        }
+        self.tableView .reloadData()
     }
+    
+    @objc func textFiledChangeValue(textField:UITextField) {
+          
+          let lang = textFiled.textInputMode?.primaryLanguage
+          if lang == "zh-Hans"
+          {
+              let selectRange = textFiled .markedTextRange
+              
+              if selectRange == nil || selectRange!.isEmpty
+              {
+                  self .setnetWork(keyWork: textField.text!)
+              }else
+              {
+                  print("有高亮选择的字符串")
+              }
+          }else
+          {
+              self .setnetWork(keyWork: textField.text!)
+          }
+          
+          
+      }
 }

@@ -71,6 +71,7 @@ class SDCitySelectVC: UIViewController ,UITableViewDelegate,UITableViewDataSourc
     @objc func searchBtnClick() {
         
         let vc = SDCitySelectSearchVC()
+        vc.allArr = self.citySelectVM.allCityArray
         vc.searchResultBlock = self.selectResultBlock
         self.navigationController? .pushViewController(vc, animated: false)
     }
@@ -92,8 +93,17 @@ class SDCitySelectVC: UIViewController ,UITableViewDelegate,UITableViewDataSourc
         tableView.sectionIndexColor = ColorHex(0xFF6D3D)
         return tableView
     }()
+    lazy var leftBtn: UIButton = {
+           let btn = UIButton()
+           btn.frame = CGRect(x: 0, y: 0, width: 30, height: 44)
+           btn .setImage(UIImage.init(named: "nav_back"), for: UIControl.State.normal)
+           btn .addTarget(self, action: #selector(popBtnClick), for: UIControl.Event.touchUpInside)
+           return btn
+       }()
     
-    
+    @objc func popBtnClick() {
+        self.navigationController! .popViewController(animated: false)
+    }
     /*
      // MARK: - Navigation
      
@@ -110,6 +120,9 @@ extension SDCitySelectVC{
     func setupUI() {
         self.view.backgroundColor = UIColor.white
         self.navigationItem.titleView = self.searchBtn
+        
+        let leftItem = UIBarButtonItem(customView: self.leftBtn)
+        self.navigationItem.leftBarButtonItem = leftItem
         
         self.tableView.tableHeaderView = self.currentCityView;
         

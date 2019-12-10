@@ -13,16 +13,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        title = "城市选择"
-        self.view .addSubview(self.btn)
+        self .setupUI()
         // Do any additional setup after loading the view.
     }
 
-    lazy var btn: UIButton = {
+    lazy var leftBtn: UIButton = {
         let btn = UIButton()
-        btn.frame = CGRect(x: 0, y: 100, width: 100, height: 30)
-        btn .setTitle("按钮点击", for: UIControl.State.normal)
-        btn .setTitleColor(UIColor.red, for: UIControl.State.normal)
+        btn.frame = CGRect(x: 0, y: (44-30)/2, width: 30, height: 30)
+        btn .setTitle("定位中", for: UIControl.State.normal)
+        btn .setTitleColor(UIColor.black, for: UIControl.State.normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         btn .addTarget(self, action: #selector(btnClick), for: UIControl.Event.touchUpInside)
         return btn
@@ -30,9 +29,21 @@ class ViewController: UIViewController {
     
     @objc func btnClick() {
         let vc =  SDCitySelectVC()
-        
+        vc.selectResultBlock = { (cityModel:SDCityModel) -> Void in
+            self .setLeftBtnTitle(title: cityModel.name! as String)
+        }
         navigationController! .pushViewController(vc, animated: true)
     }
 
 }
 
+extension ViewController {
+    func setupUI() {
+        title = "城市选择"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.leftBtn)
+    }
+    
+    func setLeftBtnTitle(title:String) {
+        self.leftBtn.setTitle(title, for: .normal)
+    }
+}

@@ -25,6 +25,11 @@ class SDCitySelectVM: NSObject {
            return firstLetterArray
     }()
     
+    lazy var allCityArray:NSMutableArray = {
+        let allCityArray = NSMutableArray.init()
+        return allCityArray
+    }()
+    
     func getCityListNetWork(callBack:@escaping ((Bool)->())) {
         
         let cityListPath:String = Bundle.main.path(forResource: "City", ofType: "plist") ?? ""
@@ -48,6 +53,8 @@ class SDCitySelectVM: NSObject {
                 }
             }
         }
+        
+        self.allCityArray = NSMutableArray(array: allCityArr)
         
         //去重
         let firstLetterArray = allCityArr.value(forKeyPath: "@distinctUnionOfObjects.firstLetter") as![String]
