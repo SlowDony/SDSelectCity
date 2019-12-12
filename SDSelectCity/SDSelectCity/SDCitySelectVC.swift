@@ -16,15 +16,14 @@ class SDCitySelectVC: UIViewController ,UITableViewDelegate,UITableViewDataSourc
         super.viewDidLoad()
         self .setupUI()
         self .cityNetWork()
-        self.locationM.startUpdatingLocation()
-        
+        self .location()
     }
     
     lazy var currentCityView:SDCitySelectHeadView = {
         let currentCityView  = SDCitySelectHeadView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 114+12))
          currentCityView.locationBtnClickBlock = {
             self.currentCityView .setLocationButtonState(state: .positioning)
-            self.locationM.startUpdatingLocation()
+            self .location()
         }
         currentCityView.currentBtnClickBlock = {(sender:UIButton) in
            let cityModel = SDCityModel()
@@ -56,17 +55,18 @@ class SDCitySelectVC: UIViewController ,UITableViewDelegate,UITableViewDataSourc
     }()
     
     
-    lazy var locationM: CLLocationManager = {
-        let locationM = CLLocationManager()
-        locationM.delegate = self
-        if #available(iOS 8.0, *) {
-          locationM.requestAlwaysAuthorization()
+    func location(){
+        let manage = SDLocationManager .shared
+        manage .startPositing(vc: self)
+        manage.cityPositionBlock = {(cityName:String ,error:String) -> Void in
+            if (error.isEmpty){
+               self.currentCityView .setCurrentCityButtonTitle(title: cityName)
+               self.currentCityView .setLocationButtonState(state: .locateComplete)
+            }else{
+               self.currentCityView .setLocationButtonState(state: .locateFailure)
+            }
         }
-        return locationM
-    }()
-    lazy var geoCoder: CLGeocoder = {
-        return CLGeocoder()
-    }()
+    }
     
     @objc func searchBtnClick() {
         
@@ -245,61 +245,61 @@ extension SDCitySelectVC{
     }
 }
 
-extension SDCitySelectVC:CLLocationManagerDelegate{
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let newLocation = locations.last
-            else {
-            print("失败1")
-            return
-        }
-            print(newLocation)//<+31.26514482,+121.61259089> +/- 50.00m (speed 0.00 mps / course -1.00) @ 2016/11/14 中国标准时间 14:49:51
-        if newLocation.horizontalAccuracy < 0 {
-            print("失败2")
-            return
-        }
-         geoCoder.reverseGeocodeLocation(newLocation) { (pls: [CLPlacemark]?, error: Error?) in
-            if error == nil {
-                guard let pl = pls?.first else {return}
-                print("22222\(pl.locality!)22222")//上海市
-                
-                UserDefaults.standard .set(pl.locality, forKey: "locationCityName")
-                self.currentCityView .setCurrentCityButtonTitle(title: pl.locality ?? "")
-                self.currentCityView .setLocationButtonState(state: .locateComplete)
-            }else{
-                print("定位失败")
-                self.currentCityView .setLocationButtonState(state: .locateFailure)
-            }
-        }
-        manager.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        self.currentCityView .setLocationButtonState(state: .locateFailure)
-        
-//        let alert = LEEAlert.alert()
-//        _ = alert.config
-//            .leeTitle("伯图全景温馨提示您")
-//            .leeContent("请开启定位服务,已便获取附近信息")
-//            .leeAddAction({(action:LEEAction)in
-//                action.title = "取消"
-//                action.titleColor = ColorHex(0x919090)
-//                action.type = .cancel
-//            })
-//            .leeAddAction({(action:LEEAction)in
-//                action.title = "确定"
-//                action.titleColor = ColorHex(0xFF8A41)
-//                action.clickBlock = {
-//                    let url = URL.init(string: UIApplication.openSettingsURLString)
-//                    if UIApplication .shared .canOpenURL(url!){
-//                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-//                    }
-//                }
-//            })
-//            .leeShow()
-        manager.stopUpdatingLocation()
-    }
-    
-}
+//extension SDCitySelectVC:CLLocationManagerDelegate{
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let newLocation = locations.last
+//            else {
+//            print("失败1")
+//            return
+//        }
+//            print(newLocation)//<+31.26514482,+121.61259089> +/- 50.00m (speed 0.00 mps / course -1.00) @ 2016/11/14 中国标准时间 14:49:51
+//        if newLocation.horizontalAccuracy < 0 {
+//            print("失败2")
+//            return
+//        }
+//         geoCoder.reverseGeocodeLocation(newLocation) { (pls: [CLPlacemark]?, error: Error?) in
+//            if error == nil {
+//                guard let pl = pls?.first else {return}
+//                print("22222\(pl.locality!)22222")//上海市
+//
+//                UserDefaults.standard .set(pl.locality, forKey: "locationCityName")
+//                self.currentCityView .setCurrentCityButtonTitle(title: pl.locality ?? "")
+//                self.currentCityView .setLocationButtonState(state: .locateComplete)
+//            }else{
+//                print("定位失败")
+//                self.currentCityView .setLocationButtonState(state: .locateFailure)
+//            }
+//        }
+//        manager.stopUpdatingLocation()
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        self.currentCityView .setLocationButtonState(state: .locateFailure)
+//
+////        let alert = LEEAlert.alert()
+////        _ = alert.config
+////            .leeTitle("伯图全景温馨提示您")
+////            .leeContent("请开启定位服务,已便获取附近信息")
+////            .leeAddAction({(action:LEEAction)in
+////                action.title = "取消"
+////                action.titleColor = ColorHex(0x919090)
+////                action.type = .cancel
+////            })
+////            .leeAddAction({(action:LEEAction)in
+////                action.title = "确定"
+////                action.titleColor = ColorHex(0xFF8A41)
+////                action.clickBlock = {
+////                    let url = URL.init(string: UIApplication.openSettingsURLString)
+////                    if UIApplication .shared .canOpenURL(url!){
+////                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+////                    }
+////                }
+////            })
+////            .leeShow()
+//        manager.stopUpdatingLocation()
+//    }
+//
+//}
 
 extension SDCitySelectVC{
     func cityNetWork()  {

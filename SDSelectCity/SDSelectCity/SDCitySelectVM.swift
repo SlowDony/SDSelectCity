@@ -58,7 +58,6 @@ class SDCitySelectVM: NSObject {
         
         //去重
         let firstLetterArray = allCityArr.value(forKeyPath: "@distinctUnionOfObjects.firstLetter") as![String]
-        print(firstLetterArray)
         self.firstLetterArray = NSMutableArray(array: firstLetterArray)
         
         for firstLetter in firstLetterArray{
@@ -75,11 +74,7 @@ class SDCitySelectVM: NSObject {
             }
             self.rootDataArr .add(cityInital)
         }
-       
-        for cityInital in self.rootDataArr  {
-            print((cityInital as! SDCityInitial).cityArr?.count as Any)
-        }
-        
+    
        let hotCity = SDCityInitial()
         hotCity.initial = "热门城市"
         
@@ -98,58 +93,8 @@ class SDCitySelectVM: NSObject {
         
         hotCity.cityArr = [bjCity,shCity,cqCity,xaCity,hzCity,tjCity]
         self.rootDataArr .insert(hotCity, at: 0)
-        print(self.rootDataArr)
+        
         callBack(true)
-        
-        
-//        BPHealthHomeServer.getAreaCityHotSuccess({(obj,msg,info) in
-//
-//            let dataDic = obj as! NSDictionary
-//
-//            let hotModelArr :[SDCityModel] = NSArray.yy_modelArray(with: SDCityModel.self, json: dataDic["hotAreas"] ?? []) as! [SDCityModel]
-//            self.hotCityArr .addObjects(from: hotModelArr)
-//
-//            let cityModelArr :[SDCityModel] = NSArray.yy_modelArray(with: SDCityModel.self, json: dataDic["citys"] ?? []) as![SDCityModel]
-//
-//            let dataArr = NSMutableArray(array: cityModelArr)
-//
-//            let firstLetterArray = dataArr.value(forKeyPath: "@distinctUnionOfObjects.firstLetter") as![String]
-//            self.firstLetterArray = NSMutableArray(array: firstLetterArray)
-//            for str in firstLetterArray{
-//                let cityInitial = SDCityInitial()
-//                cityInitial.initial = str as NSString
-//                cityInitial.cityArr = NSMutableArray.init()
-//                for cityModel in cityModelArr{
-//                    if((cityModel.firstLetter! as String) == str){
-//                        cityInitial.cityArr?.add(cityModel)
-//                    }
-//                }
-//                self.rootDataArr .add(cityInitial)
-//            }
-//
-//            let cityInitial = SDCityInitial()
-//            cityInitial.initial = "热门城市"
-//            cityInitial.cityArr = NSMutableArray(array: self.hotCityArr)
-//            self.rootDataArr .insert(cityInitial, at: 0)
-//
-//            callBack(true)
-//
-//
-//        }) { (error, msg,info ) in
-//            callBack(false)
-//        }
-    }
-    func getJSONStringFromArray(array:NSArray) -> String {
-         
-        if (!JSONSerialization.isValidJSONObject(array)) {
-            print("无法解析出JSONString")
-            return ""
-        }
-         
-        let data : NSData! = try? JSONSerialization.data(withJSONObject: array, options: []) as NSData?
-        let JSONString = NSString(data:data as Data,encoding: String.Encoding.utf8.rawValue)
-        return JSONString! as String
-         
     }
 }
 

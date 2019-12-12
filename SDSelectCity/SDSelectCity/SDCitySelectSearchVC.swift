@@ -68,7 +68,7 @@ class SDCitySelectSearchVC: UIViewController ,UITableViewDelegate,UITableViewDat
     
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: kScreenH-kNavTopHeight)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavTopHeight, width: kScreenW, height: kScreenH-kNavTopHeight)
             , style: UITableView.Style.plain)
         tableView.delegate = self
         tableView.dataSource = self

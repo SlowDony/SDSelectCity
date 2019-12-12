@@ -14,12 +14,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         self .setupUI()
+        
+        let manage = SDLocationManager .shared
+        manage .startPositing(vc: self)
+        manage.cityPositionBlock = {(msg:String ,error:String) -> Void in
+            if (error.isEmpty){
+               self .setLeftBtnTitle(title: msg)
+            }else{
+               self .setLeftBtnTitle(title: error)
+            }
+        }
         // Do any additional setup after loading the view.
     }
 
     lazy var leftBtn: UIButton = {
         let btn = UIButton()
-        btn.frame = CGRect(x: 0, y: (44-30)/2, width: 30, height: 30)
+        btn.frame = CGRect(x: 0, y: (44-30)/2, width: 50, height: 30)
         btn .setTitle("定位中", for: UIControl.State.normal)
         btn .setTitleColor(UIColor.black, for: UIControl.State.normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)

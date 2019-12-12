@@ -56,7 +56,7 @@
 		8651DE902391132F001BE9D7 /* Macros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Macros.swift; sourceTree = "<group>"; };
 		8651DE92239114BE001BE9D7 /* SDCitySelectVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDCitySelectVM.swift; sourceTree = "<group>"; };
 		8680AC8D239F8FF400DE7702 /* SDLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDLocationManager.swift; sourceTree = "<group>"; };
-		86B43E52238F5F4900949BDD /* SDSelectCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDSelectCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		86B43E52238F5F4900949BDD /* 城市选择.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "城市选择.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86B43E55238F5F4900949BDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86B43E59238F5F4900949BDD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		86B43E5C238F5F4900949BDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		86B43E53238F5F4900949BDD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				86B43E52238F5F4900949BDD /* SDSelectCity.app */,
+				86B43E52238F5F4900949BDD /* 城市选择.app */,
 				86B43E68238F5F4F00949BDD /* SDSelectCityTests.xctest */,
 				86B43E73238F5F4F00949BDD /* SDSelectCityUITests.xctest */,
 			);
@@ -183,7 +183,7 @@
 			);
 			name = SDSelectCity;
 			productName = SDSelectCity;
-			productReference = 86B43E52238F5F4900949BDD /* SDSelectCity.app */;
+			productReference = 86B43E52238F5F4900949BDD /* 城市选择.app */;
 			productType = "com.apple.product-type.application";
 		};
 		86B43E67238F5F4F00949BDD /* SDSelectCityTests */ = {
@@ -490,7 +490,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SelectCity;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "城市选择";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -508,7 +508,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SelectCity;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "城市选择";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
